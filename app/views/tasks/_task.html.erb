@@ -1,0 +1,25 @@
+<div class="grid border-b border-gray-200 task-wrapper" data-controller="delete">
+  <turbo-frame id="<%= dom_id task %>" class="grid row-start-1">
+    <%= form_with(model: task, class: "row-start-1 text-lg inline-flex my-3") do |form| %>
+      <%= form.check_box :completed,
+                          data: {
+                            id: task.id,
+                            action: "tasks#toggle"                            
+                          },
+                          class: "mt-1 mr-2 bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-5 w-5 rounded-full checked:bg-green-500" %>
+      <%= content_tag :div, 
+                      task.description, 
+                      class: "#{task.completed ? 'line-through' : ''} w-5/6 description" %>      
+    <% end %>
+ 
+    <div class="flex row-start-1">
+      <%= link_to "Edit", edit_task_path(task),
+                          class: "row-start-1 btn bg-gray-100 h-min ml-auto btn-edit" %>
+
+      <%= button_to "Delete", task_path(task),
+                              method: :delete,                              
+                              data: { action: "delete#handleDeleteClick" },
+                              class: "btn bg-red-100 ml-4" %>
+    </div> 
+  </turbo-frame>   
+</div>

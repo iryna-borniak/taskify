@@ -1,0 +1,16 @@
+<%= form_with(model: task, class: "w-full mb-7") do |form| %>
+  <div class="mb-5">
+    <% if task.errors.any? %>          
+      <% task.errors.each do |error| %>
+        <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block">
+          <%= error.full_message %>
+        </p>
+      <% end %>    
+    <% end %>  
+
+    <%= form.text_field :description, 
+                        placeholder: "Add new task", 
+                        class: "#{'border-red-500' if task.errors[:description].any?} inline-block w-full px-3 py-2 mt-2 shadow rounded-md border border-gray-200 outline-none w-text-field" %>
+    <%= form.submit "Save", class: "btn py-2 px-7 ml-2 bg-sky-500 hover:bg-sky-600 active:bg-sky-700 transition duration-300 ease-in-out text-white" %>
+  </div>
+<% end %>

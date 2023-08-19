@@ -1,0 +1,33 @@
+<% if notice.present? %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice">
+    <%= notice %>
+  </p>
+<% end %>
+
+<h1 class="font-thin text-7xl text-center title">Task Manager</h1>
+
+<div class="px-4 mt-4">
+  <%= render "form", task: @task %>
+</div>
+
+<div id="tasks" class="shadow mb-6">
+  <div data-controller="tasks">
+    <div class="grid grid-template-columns justify-between items-end border-b border-gray-200 py-2 px-4">      
+      <div class="row-start-1"><span id="not_completed_count"></span> left</div>      
+      <div class="flex justify-self-center row-start-1">
+        <%= active_link_to("All", tasks_path) %>
+        <%= active_link_to("Active", tasks_not_completed_path(completed: false)) %>          
+        <%= active_link_to("Completed", tasks_completed_path(completed: true)) %>
+      </div>
+
+      <%= link_to "Delete completed", delete_completed_tasks_path,
+                                      method: :delete,
+                                      data: { turbo_method: :delete },
+                                      class: "row-start-1 justify-self-end border-b border-b-transparent hover:border-b-zinc-700 hover:text-black h-7 transition duration-300 ease-in-out" %>                                       
+    </div>
+    
+    <div>         
+      <%= render @tasks %>      
+    </div>    
+  </div> 
+</div>
